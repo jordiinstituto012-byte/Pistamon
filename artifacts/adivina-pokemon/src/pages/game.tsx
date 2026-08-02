@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent, useRef } from 'react';
-import { pokemones, getPokemonSprite, getPokemonId } from '../data/pokemon';
+import { pokemones, getPokemonSprite } from '../data/pokemon';
 import { Search, Trophy, RotateCcw, AlertCircle, PlayCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,8 +40,6 @@ export default function Game() {
   const hints = pokemones[target];
   
   const spriteUrl = getPokemonSprite(target);
-  const pokedexId = getPokemonId(target);
-  const formattedId = `#${pokedexId.toString().padStart(3, '0')}`;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -110,20 +108,31 @@ export default function Game() {
         {/* Sprite Area */}
         <div className="relative w-48 h-48 md:w-56 md:h-56 mb-8 flex items-center justify-center">
           <div className="absolute inset-0 bg-secondary/10 rounded-full animate-pulse-slow"></div>
-          
-          <div className="absolute top-0 right-0 bg-secondary text-white px-3 py-1 rounded-full font-bold text-sm shadow-md transform rotate-12">
-            {formattedId}
-          </div>
 
-          <img 
-            src={spriteUrl} 
-            alt="Pokemon Mystery" 
-            className={`w-full h-full object-contain transition-all duration-1000 ${
-              status === 'playing' ? 'silhouette scan-line drop-shadow-[0_0_15px_rgba(59,76,202,0.6)]' : 
-              status === 'won' ? 'reveal-win drop-shadow-[0_0_20px_rgba(255,203,5,0.8)]' : 'reveal-loss'
-            }`}
-            style={{ imageRendering: 'pixelated' }}
-          />
+          {status === 'won' ? (
+            <img
+              src={spriteUrl}
+              alt={target}
+              className="w-full h-full object-contain reveal-win drop-shadow-[0_0_20px_rgba(255,203,5,0.8)]"
+              style={{ imageRendering: 'pixelated' }}
+            />
+          ) : (
+            /* Poké Ball */
+            <svg viewBox="0 0 100 100" className="w-4/5 h-4/5 drop-shadow-xl" aria-label="Poké Ball">
+              {/* Top half — red */}
+              <path d="M 5 50 A 45 45 0 0 1 95 50 Z" fill="#FF1111" />
+              {/* Bottom half — white */}
+              <path d="M 5 50 A 45 45 0 0 0 95 50 Z" fill="#FFFFFF" />
+              {/* Outer black ring */}
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#222" strokeWidth="5" />
+              {/* Black divider band */}
+              <rect x="5" y="46" width="90" height="8" fill="#222" />
+              {/* White inner circle */}
+              <circle cx="50" cy="50" r="14" fill="#FFFFFF" stroke="#222" strokeWidth="5" />
+              {/* Center button */}
+              <circle cx="50" cy="50" r="7" fill="#EEEEEE" />
+            </svg>
+          )}
         </div>
 
         {/* Status Messages */}
