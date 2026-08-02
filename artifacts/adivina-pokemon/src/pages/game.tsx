@@ -169,7 +169,7 @@ export default function Game() {
                 value={currentGuess}
                 onChange={(e) => setCurrentGuess(e.target.value)}
                 placeholder="¿Quién es ese Pokémon?"
-                className="w-full h-16 pl-6 pr-32 text-xl font-bold rounded-2xl border-4 border-secondary/20 focus-visible:border-secondary focus-visible:ring-secondary/30 shadow-inner bg-white/50 text-center"
+                className="w-full h-16 pl-6 pr-32 text-xl font-bold rounded-2xl border-4 border-secondary/20 focus-visible:border-secondary focus-visible:ring-secondary/30 shadow-inner bg-white text-gray-900 placeholder:text-gray-400 text-center"
                 autoComplete="off"
                 autoFocus
               />
