@@ -109,11 +109,15 @@ export default function Game() {
         <div className="relative w-48 h-48 md:w-56 md:h-56 mb-8 flex items-center justify-center">
           <div className="absolute inset-0 bg-secondary/10 rounded-full animate-pulse-slow"></div>
 
-          {status === 'won' ? (
+          {status !== 'playing' ? (
             <img
               src={spriteUrl}
               alt={target}
-              className="w-full h-full object-contain reveal-win drop-shadow-[0_0_20px_rgba(255,203,5,0.8)]"
+              className={`w-full h-full object-contain transition-all duration-700 ${
+                status === 'won'
+                  ? 'reveal-win drop-shadow-[0_0_20px_rgba(255,203,5,0.8)]'
+                  : 'reveal-loss drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]'
+              }`}
               style={{ imageRendering: 'pixelated' }}
             />
           ) : (
