@@ -197,12 +197,8 @@ export default function Game() {
       <div className="min-h-screen w-full flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-secondary/30 rounded-full blur-[80px] pointer-events-none" />
-
-        <h1 className="text-4xl md:text-5xl font-black text-primary text-center mb-4 tracking-tight z-10">
-          🔥 ADIVINA EL POKÉMON 🔥
-        </h1>
+        <h1 className="md:text-5xl font-black text-primary text-center mb-4 tracking-tight z-10 text-[89px]">🔥 PISTAMON🔥</h1>
         <p className="text-white/70 text-lg font-semibold mb-12 z-10">Elige tu región para empezar</p>
-
         <div className="flex flex-col sm:flex-row gap-6 z-10">
           {/* Kanto */}
           <button
@@ -248,7 +244,6 @@ export default function Game() {
             <div className="absolute inset-0 rounded-3xl bg-primary/0 group-hover:bg-primary/5 transition-colors" />
           </button>
         </div>
-
         <div className="mt-16 text-white/40 text-sm font-medium tracking-wide flex items-center gap-2 z-10">
           <PlayCircle className="w-4 h-4" /> Gen I & II Edition
         </div>
