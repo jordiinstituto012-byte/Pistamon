@@ -4,6 +4,14 @@ import { Search, Trophy, RotateCcw, AlertCircle, PlayCircle } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+function getSuggestions(query: string): string[] {
+  if (!query.trim()) return [];
+  const q = query.trim().toLowerCase();
+  return Object.keys(pokemones)
+    .filter(name => name.trim().toLowerCase().startsWith(q))
+    .slice(0, 3);
+}
+
 const MAX_ATTEMPTS = 4;
 const POKEMON_NAMES = Object.keys(pokemones);
 
@@ -167,24 +175,52 @@ export default function Game() {
 
             {/* Input Form */}
             <form onSubmit={handleSubmit} className="w-full max-w-md relative mb-8">
-              <Input
-                ref={inputRef}
-                type="text"
-                value={currentGuess}
-                onChange={(e) => setCurrentGuess(e.target.value)}
-                placeholder="¿Quién es ese Pokémon?"
-                className="w-full h-16 pl-6 pr-32 text-xl font-bold rounded-2xl border-4 border-secondary/20 focus-visible:border-secondary focus-visible:ring-secondary/30 shadow-inner bg-white text-gray-900 placeholder:text-gray-400 text-center"
-                autoComplete="off"
-                autoFocus
-              />
-              <Button 
-                type="submit"
-                disabled={!currentGuess.trim()}
-                className="absolute right-2 top-2 bottom-2 h-auto px-6 rounded-xl font-black text-secondary-foreground bg-primary hover:bg-primary/90 shadow-[0_4px_0_0_rgba(200,150,0,1)] active:shadow-[0_0px_0_0_rgba(200,150,0,1)] active:translate-y-1 transition-all"
-              >
-                <Search className="w-5 h-5 mr-1" />
-                DILO
-              </Button>
+              <div className="relative">
+                <Input
+                  ref={inputRef}
+                  type="text"
+                  value={currentGuess}
+                  onChange={(e) => setCurrentGuess(e.target.value)}
+                  placeholder="¿Quién es ese Pokémon?"
+                  className="w-full h-16 pl-6 pr-32 text-xl font-bold rounded-2xl border-4 border-secondary/20 focus-visible:border-secondary focus-visible:ring-secondary/30 shadow-inner bg-white text-gray-900 placeholder:text-gray-400 text-center"
+                  autoComplete="off"
+                  autoFocus
+                />
+                <Button
+                  type="submit"
+                  disabled={!currentGuess.trim()}
+                  className="absolute right-2 top-2 bottom-2 h-auto px-6 rounded-xl font-black text-secondary-foreground bg-primary hover:bg-primary/90 shadow-[0_4px_0_0_rgba(200,150,0,1)] active:shadow-[0_0px_0_0_rgba(200,150,0,1)] active:translate-y-1 transition-all"
+                >
+                  <Search className="w-5 h-5 mr-1" />
+                  DILO
+                </Button>
+              </div>
+
+              {/* Autocomplete suggestions */}
+              {getSuggestions(currentGuess).length > 0 && (
+                <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl shadow-2xl border-2 border-secondary/20 overflow-hidden z-50">
+                  {getSuggestions(currentGuess).map((name) => (
+                    <button
+                      key={name}
+                      type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setCurrentGuess(name);
+                        inputRef.current?.focus();
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-2 hover:bg-secondary/10 transition-colors text-left border-b border-gray-100 last:border-b-0"
+                    >
+                      <img
+                        src={getPokemonSprite(name)}
+                        alt={name}
+                        className="w-10 h-10 object-contain"
+                        style={{ imageRendering: 'pixelated' }}
+                      />
+                      <span className="font-bold text-gray-900 text-lg">{name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </form>
 
             {/* Hints Area */}
