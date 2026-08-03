@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "Adivina el Pokémon"
+title = "PokeGuesser"
 description = "A Spanish-language Gen 1 Pokémon guessing game. A random Pokémon is chosen and the player has 4 attempts to guess it. Three progressive hints are revealed on wrong guesses. Includes the full 151-Pokémon Gen 1 Pokédex with Spanish clues."
 version = "1.0.0"
 id = "artifacts/adivina-pokemon"
