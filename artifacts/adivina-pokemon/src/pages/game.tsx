@@ -21,7 +21,7 @@ function getSuggestions(query: string, regionData: Record<string, string[]>): st
 
 const MAX_ATTEMPTS = 4;
 
-// Pokeball SVG used in multiple places
+// Pokeball SVG used during gameplay
 function PokeBallSVG() {
   return (
     <svg viewBox="0 0 100 100" className="w-4/5 h-4/5 drop-shadow-xl" aria-label="Poké Ball">
@@ -31,6 +31,130 @@ function PokeBallSVG() {
       <rect x="5" y="46" width="90" height="8" fill="#222" />
       <circle cx="50" cy="50" r="14" fill="#FFFFFF" stroke="#222" strokeWidth="5" />
       <circle cx="50" cy="50" r="7" fill="#EEEEEE" />
+    </svg>
+  );
+}
+
+// Stylized Kanto region map SVG
+function KantoMapSVG() {
+  return (
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-label="Mapa de Kanto">
+      {/* Sky / sea background */}
+      <rect width="200" height="160" fill="#7ec8e3" />
+      {/* Ocean patches */}
+      <rect x="140" y="90" width="60" height="70" fill="#5ab3d4" rx="4" />
+      <rect x="0" y="120" width="50" height="40" fill="#5ab3d4" rx="4" />
+      {/* Main landmass */}
+      <polygon points="10,10 190,10 190,130 150,145 100,155 50,150 10,140" fill="#6ab04c" />
+      {/* Route lines (paths between towns) */}
+      <line x1="40" y1="130" x2="40" y2="85" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="40" y1="85" x2="75" y2="85" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="75" y1="85" x2="75" y2="50" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="75" y1="50" x2="120" y2="50" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="120" y1="50" x2="155" y2="85" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="120" y1="85" x2="155" y2="85" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="75" y1="85" x2="120" y2="85" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="120" y1="85" x2="120" y2="120" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="40" y1="130" x2="80" y2="130" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="80" y1="130" x2="120" y2="120" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      {/* Mountain range */}
+      <polygon points="60,70 70,52 80,70" fill="#8B7355" opacity="0.8" />
+      <polygon points="75,68 85,50 95,68" fill="#8B7355" opacity="0.8" />
+      <polygon points="90,70 100,52 110,70" fill="#8B7355" opacity="0.8" />
+      {/* Towns (white squares with colored roofs) */}
+      {/* Pallet Town */}
+      <rect x="33" y="123" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="33,123 47,123 40,116" fill="#e74c3c" />
+      {/* Viridian */}
+      <rect x="33" y="78" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="33,78 47,78 40,71" fill="#27ae60" />
+      {/* Pewter */}
+      <rect x="68" y="78" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="68,78 82,78 75,71" fill="#7f8c8d" />
+      {/* Cerulean */}
+      <rect x="68" y="43" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="68,43 82,43 75,36" fill="#3498db" />
+      {/* Vermilion */}
+      <rect x="113" y="113" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="113,113 127,113 120,106" fill="#e67e22" />
+      {/* Lavender */}
+      <rect x="148" y="78" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="148,78 162,78 155,71" fill="#9b59b6" />
+      {/* Celadon */}
+      <rect x="113" y="43" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="113,43 127,43 120,36" fill="#2ecc71" />
+      {/* Saffron */}
+      <rect x="113" y="78" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="113,78 127,78 120,71" fill="#f1c40f" />
+      {/* Fuchsia */}
+      <rect x="73" y="123" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="73,123 87,123 80,116" fill="#e91e63" />
+      {/* Legend label */}
+      <text x="100" y="15" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white" fontFamily="sans-serif" style={{textShadow:'0 1px 2px #000'}}>KANTO</text>
+    </svg>
+  );
+}
+
+// Stylized Johto region map SVG
+function JohtoMapSVG() {
+  return (
+    <svg viewBox="0 0 200 160" className="w-full h-full" aria-label="Mapa de Johto">
+      {/* Sky / sea background */}
+      <rect width="200" height="160" fill="#5ab3d4" />
+      {/* Ocean patches */}
+      <rect x="0" y="100" width="40" height="60" fill="#4a9fc0" rx="4" />
+      <rect x="150" y="110" width="50" height="50" fill="#4a9fc0" rx="4" />
+      {/* Main landmass — Johto is taller/narrower shape */}
+      <polygon points="30,10 175,10 185,80 170,140 120,155 60,150 25,120 20,60" fill="#5a9e3c" />
+      {/* Route paths */}
+      <line x1="55" y1="130" x2="55" y2="90" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="55" y1="90" x2="90" y2="90" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="90" y1="90" x2="90" y2="55" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="55" y1="55" x2="90" y2="55" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="55" y1="55" x2="55" y2="25" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="55" y1="25" x2="100" y2="25" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="100" y1="25" x2="130" y2="55" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="90" y1="55" x2="130" y2="55" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="130" y1="55" x2="155" y2="55" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="130" y1="55" x2="130" y2="90" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="90" y1="90" x2="130" y2="90" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      <line x1="55" y1="130" x2="100" y2="130" stroke="#c8a96e" strokeWidth="3" strokeDasharray="4,3" />
+      {/* Mountain range (Mt. Mortar, Ice Path region) */}
+      <polygon points="100,42 110,24 120,42" fill="#8B7355" opacity="0.8" />
+      <polygon points="115,40 125,22 135,40" fill="#8B7355" opacity="0.8" />
+      {/* Snow cap on peaks */}
+      <polygon points="109,28 110,24 111,28" fill="white" />
+      <polygon points="124,26 125,22 126,26" fill="white" />
+      {/* Towns */}
+      {/* New Bark */}
+      <rect x="133" y="83" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="133,83 147,83 140,76" fill="#27ae60" />
+      {/* Cherrygrove */}
+      <rect x="133" y="123" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="133,123 147,123 140,116" fill="#e91e63" />
+      {/* Violet */}
+      <rect x="83" y="83" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="83,83 97,83 90,76" fill="#9b59b6" />
+      {/* Azalea */}
+      <rect x="83" y="123" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="83,123 97,123 90,116" fill="#f39c12" />
+      {/* Goldenrod */}
+      <rect x="48" y="48" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="48,48 62,48 55,41" fill="#f1c40f" />
+      {/* Ecruteak */}
+      <rect x="83" y="48" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="83,48 97,48 90,41" fill="#8B4513" />
+      {/* Olivine */}
+      <rect x="48" y="83" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="48,83 62,83 55,76" fill="#2ecc71" />
+      {/* Mahogany */}
+      <rect x="148" y="48" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="148,48 162,48 155,41" fill="#c0392b" />
+      {/* Blackthorn */}
+      <rect x="48" y="18" width="14" height="14" fill="#f0f0f0" rx="2" />
+      <polygon points="48,18 62,18 55,11" fill="#2c3e50" />
+      {/* Legend label */}
+      <text x="100" y="15" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white" fontFamily="sans-serif" style={{textShadow:'0 1px 2px #000'}}>JOHTO</text>
     </svg>
   );
 }
@@ -84,10 +208,15 @@ export default function Game() {
           <button
             onClick={() => startGame('kanto')}
             data-testid="button-region-kanto"
-            className="group relative w-64 bg-card rounded-3xl border-4 border-white/20 shadow-2xl p-8 flex flex-col items-center gap-4 hover:scale-105 hover:border-primary/60 transition-all duration-200 cursor-pointer"
+            className="group relative w-64 bg-card rounded-3xl border-4 border-white/20 shadow-2xl p-6 flex flex-col items-center gap-4 hover:scale-105 hover:border-primary/60 transition-all duration-200 cursor-pointer overflow-hidden"
           >
-            <div className="w-24 h-24 flex items-center justify-center">
-              <PokeBallSVG />
+            <div className="w-full h-40 rounded-2xl overflow-hidden flex items-center justify-center bg-green-950/30">
+              <img
+                src="https://archives.bulbagarden.net/media/upload/thumb/0/00/Kanto_HGSS.png/280px-Kanto_HGSS.png"
+                alt="Mapa de Kanto"
+                className="w-full h-full object-cover"
+                style={{ imageRendering: 'pixelated' }}
+              />
             </div>
             <div className="text-center">
               <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-1">Gen I</p>
@@ -101,19 +230,15 @@ export default function Game() {
           <button
             onClick={() => startGame('johto')}
             data-testid="button-region-johto"
-            className="group relative w-64 bg-card rounded-3xl border-4 border-white/20 shadow-2xl p-8 flex flex-col items-center gap-4 hover:scale-105 hover:border-primary/60 transition-all duration-200 cursor-pointer"
+            className="group relative w-64 bg-card rounded-3xl border-4 border-white/20 shadow-2xl p-6 flex flex-col items-center gap-4 hover:scale-105 hover:border-primary/60 transition-all duration-200 cursor-pointer overflow-hidden"
           >
-            <div className="w-24 h-24 flex items-center justify-center">
-              {/* Great Ball for Johto */}
-              <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl">
-                <path d="M 5 50 A 45 45 0 0 1 95 50 Z" fill="#3B4CCA" />
-                <path d="M 5 50 A 45 45 0 0 1 30 14 L 38 28 A 28 28 0 0 0 23 50 Z" fill="#CC3333" />
-                <path d="M 5 50 A 45 45 0 0 0 95 50 Z" fill="#FFFFFF" />
-                <circle cx="50" cy="50" r="45" fill="none" stroke="#222" strokeWidth="5" />
-                <rect x="5" y="46" width="90" height="8" fill="#222" />
-                <circle cx="50" cy="50" r="14" fill="#FFFFFF" stroke="#222" strokeWidth="5" />
-                <circle cx="50" cy="50" r="7" fill="#EEEEEE" />
-              </svg>
+            <div className="w-full h-40 rounded-2xl overflow-hidden flex items-center justify-center bg-blue-950/30">
+              <img
+                src="https://archives.bulbagarden.net/media/upload/thumb/a/a8/Johto_HGSS.png/280px-Johto_HGSS.png"
+                alt="Mapa de Johto"
+                className="w-full h-full object-cover"
+                style={{ imageRendering: 'pixelated' }}
+              />
             </div>
             <div className="text-center">
               <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-1">Gen II</p>
