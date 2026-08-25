@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>PISTAMON - Adivina el Pokémon</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=./artifacts/adivina-pokemon/">
-  <link rel="canonical" href="https://jordiinstituto012-byte.github.io/Pistamon/artifacts/adivina-pokemon/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PISTAMON - Adivina el Pokémon con Pistas</title>
+<meta name="description" content="PISTAMON es el juego para adivinar el Pokémon con pistas. Adivina por tipo, generación, color y más. ¡Juega gratis!">
+<meta name="google-site-verification" content="PON_AQUI_TU_CODIGO_DE_GOOGLE">
+<style>
+body{font-family:system-ui;background:#0f172a;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{background:#1e293b;padding:30px;border-radius:20px;text-align:center;max-width:400px;width:90%;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+h1{color:#facc15;font-size:40px;margin:0}
+input{width:90%;padding:12px;border-radius:10px;border:none;margin:15px 0;font-size:16px}
+button{background:#facc15;border:none;padding:12px 20px;border-radius:10px;font-weight:bold;cursor:pointer}
+.pista{background:#334155;padding:8px;border-radius:8px;margin:5px 0;font-size:14px}
+</style>
 </head>
 <body>
-  <p>Redirigiendo a PISTAMON... <a href="./artifacts/adivina-pokemon/">Click aquí si no carga</a></p>
+<div class="card">
+<h1>PISTAMON</h1>
+<p id="info">Adivina el Pokémon oculto</p>
+<div id="pistas"></div>
+<input id="guess" placeholder="Escribe un Pokémon...">
+<button onclick="probar()">Probar</button>
+<p id="resultado"></p>
+</div>
+<script>
+const pokes=[
+{name:"pikachu",tipo:"Eléctrico",gen:"1",color:"Amarillo",pista:"Raton eléctrico"},
+{name:"charizard",tipo:"Fuego / Volador",gen:"1",color:"Naranja",pista:"Evolución final de Charmander"},
+{name:"bulbasaur",tipo:"Planta / Veneno",gen:"1",color:"Verde",pista:"Tiene una planta en la espalda"},
+{name:"squirtle",tipo:"Agua",gen:"1",color:"Azul",pista:"Tortuga con gafas de agua"},
+{name:"mewtwo",tipo:"Psíquico",gen:"1",color:"Morado",pista:"Clon legendario de Mew"},
+{name:"lucario",tipo:"Lucha / Acero",gen:"4",color:"Azul",pista:"Usa aura"},
+{name:"gengar",tipo:"Fantasma / Veneno",gen:"1",color:"Morado",pista:"Siempre sonríe"},
+{name:"eevee",tipo:"Normal",gen:"1",color:"Marrón",pista:"Muchas evoluciones"}
+];
+let secreto=pokes[Math.floor(Math.random()*pokes.length)];
+let intentos=0;
+const pistasDiv=document.getElementById("pistas");
+function addPista(t){
+const d=document.createElement("div");d.className="pista";d.innerText=t;pistasDiv.appendChild(d);
+}
+addPista("💡 Pista 1: Generación "+secreto.gen);
+function probar(){
+const g=document.getElementById("guess").value.toLowerCase().trim();
+if(!g)return;
+intentos++;
+if(g===secreto.name){
+document.getElementById("resultado").innerHTML="¡Correcto! Era "+secreto.name+" en "+intentos+" intentos 🎉";
+}else{
+document.getElementById("resultado").innerText="No es "+g+"... Sigue probando";
+if(intentos===2)addPista("💡 Pista 2: Tipo "+secreto.tipo);
+if(intentos===3)addPista("💡 Pista 3: Color "+secreto.color);
+if(intentos===4)addPista("💡 Pista 4: "+secreto.pista);
+}
+}
+</script>
 </body>
 </html> 
